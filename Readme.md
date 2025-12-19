@@ -1,12 +1,16 @@
-## Code for Optimizing Rank for High-Fidelity Implicit Neural Representations
+## Optimizing Rank for High-Fidelity Implicit Neural Representations
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://drive.google.com/file/d/1g918SrErj66Sktx5j6ypQr2dNKB5gS7b/view?usp=sharing)
 [![Project Page](https://img.shields.io/badge/Project-Page-green)](https://muon-inrs.github.io/)
 [![arXiv](https://img.shields.io/badge/arXiv-2512.14366-b31b1b.svg)](https://arxiv.org/abs/2512.14366)
 
+<img src="assets/opening_figure.drawio.png" width="90%" alt="Opening Figure">
+
+## Abstract
+
 Implicit Neural Representations (INRs) based on vanilla Multi-Layer Perceptrons (MLPs) are widely believed to be incapable of representing high-frequency content. This has directed research efforts towards architectural interventions, such as coordinate embeddings or specialized activation functions, to represent high-frequency signals. In this paper, we challenge the notion that the low-frequency bias of vanilla MLPs is an intrinsic, architectural limitation to learn high-frequency content, but instead a symptom of stable rank degradation during training. We empirically demonstrate that regulating the network's rank during training substantially improves the fidelity of the learned signal, rendering even simple MLP architectures expressive. Extensive experiments show that using optimizers like Muon, with high-rank, near-orthogonal updates, consistently enhances INR architectures even beyond simple ReLU MLPs. These substantial improvements hold across a diverse range of domains, including natural and medical images, and novel view synthesis, with up to 9 dB PSNR improvements over the previous state-of-the-art.
 
-<img src="assets/opening_figure.drawio.png" width="75%" alt="Opening Figure">
+
 
 ## Using Muon for training INRs
 
