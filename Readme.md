@@ -37,7 +37,7 @@ the SingleDeviceMuonWithAuxAdam. We recommend tryining a range of learning rates
 
 ## Giving Muon a try
 
-To easily checkout Muon, we provide a reference notebook here. Make a copy to get started.
+To easily check out Muon and start training Muon-INRs, we provide a reference notebook [here](https://drive.google.com/file/d/1g918SrErj66Sktx5j6ypQr2dNKB5gS7b/view?usp=sharing). Make a copy to get started.
 
 ### To replicate the experiments of our paper, we provide the following instructions.
 
