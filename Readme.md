@@ -1,6 +1,6 @@
 ## Code for Optimizing Rank for High-Fidelity Implicit Neural Representations
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1g918SrErj66Sktx5j6ypQr2dNKB5gS7b#scrollTo=ypFenwd89msO)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://drive.google.com/file/d/1g918SrErj66Sktx5j6ypQr2dNKB5gS7b/view?usp=sharing)
 [![Project Page](https://img.shields.io/badge/Project-Page-green)](https://muon-inrs.github.io/)
 [![arXiv](https://img.shields.io/badge/arXiv-2512.14366-b31b1b.svg)](https://arxiv.org/abs/2512.14366)
 
