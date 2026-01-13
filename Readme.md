@@ -31,7 +31,7 @@ the SingleDeviceMuonWithAuxAdam. We recommend tryining a range of learning rates
     muon_params = []
     adam_params = [] # first/last layers + biases go here
     
-    # 1. Collect 2D weight matrices
+    # 1. Collect 2D weight matrices - we assume the weights to be ordered (!) in the model - sth to double check :)
     all_matrices = []
     for name, p in model.named_parameters():
         if p.ndim == 2 and p.size(0) > 1 and p.size(1) > 1: # check if vector
