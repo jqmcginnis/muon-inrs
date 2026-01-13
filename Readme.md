@@ -18,24 +18,39 @@ Muon (Jordan et al.) is typically used for the **hidden layers only**. Thus, ins
 the SingleDeviceMuonWithAuxAdam. We recommend tryining a range of learning rates for both Muon (hidden weights) and Adam (auxilary, for bias and input/output weights.)
 
 ```
-    # conventional optimization
+    # define model (this could also be a FF, Siren etc.) 
+    model = ReLU_INR(use_ff=use_ff, num_layers=num_layers, hidden_dim=hidden_dim).to(device)
+    
+    # Conventional optimization (Adam) for comparison
     optim_adam = torch.optim.Adam(model_adam.parameters(), lr=lr)
-
-    # optimizing with muon
+    
+    # New optimization (Muon)
+    from muon import SingleDeviceMuonWithAuxAdam
+    
+    # Optimizing with Muon - split parameters depending on architecture (you might need to adapt this to your class!)
     muon_params = []
-    other_params = []
-    for name, p in model_muon.named_parameters():
-        if p.ndim == 2 and p.size(0) > 1 and p.size(1) > 1:
-            muon_params.append(p)
+    adam_params = [] # first/last layers + biases go here
+    
+    # 1. Collect 2D weight matrices
+    all_matrices = []
+    for name, p in model.named_parameters():
+        if p.ndim == 2 and p.size(0) > 1 and p.size(1) > 1: # check if vector
+            all_matrices.append(p)
         else:
-            other_params.append(p)
+            adam_params.append(p) # Biases, vectors, scalars -> Adam
+    
+    # 2. Distribute: First & Last -> Adam, Hidden -> Muon
+    adam_params.append(all_matrices[0])   # First Layer 
+    adam_params.append(all_matrices[-1]) # Last Layer
+    muon_params.extend(all_matrices[1:-1]) # Hidden Layers 
 
+    # we do not use weight decay, but you might want to experiment with it
     optim_muon = SingleDeviceMuonWithAuxAdam([
-        dict(params=muon_params, use_muon=True, lr=muon_lr, weight_decay=0.0),
-        dict(params=other_params, use_muon=False, lr=aux_adam_lr, betas=(0.9, 0.999), weight_decay=0.0)
+    dict(params=muon_params, use_muon=True, lr=muon_lr, weight_decay=0.0),
+    dict(params=adam_params, use_muon=False, lr=aux_adam_lr, betas=(0.9, 0.999), weight_decay=0.0)
     ])
-
-    # we recommend using a learning rate scheduler, similar to how INRs are typically trained with Adam
+    
+    # We recommend using a learning rate scheduler
     scheduler_muon = torch.optim.lr_scheduler.CosineAnnealingLR(optim_muon, T_max=steps)
 ```
 
